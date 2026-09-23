@@ -13,6 +13,14 @@
 
 ![ds003969 Med vs Think 效应量](results/final_report_figures/fig2_ds003969_forest.png)
 
+## 我的贡献
+
+- 负责项目需求理解与分析方案设计，确定双谱/双相干分析流程、频段划分与评估指标。
+- 负责数据处理与质量验证：构建两套公开数据集的批量分析流程，完成伪迹检测、surrogate 检验与结果复核。
+- 负责统计分析与结论整理：完成被试内聚合、配对 t 检验、多重比较校正与跨数据集一致性分析，撰写分析报告。
+- 负责工具落地与可视化：推动 C# 分析工具与 WinForms 批量界面实现，集成 2D/3D 可视化与 CSV 输出。
+- 开发过程使用 AI 辅助编程，核心算法与统计结果均经过人工复核与交叉验证。
+
 ## 功能特性
 
 - **信号管线**：BDF 读取（Biosemi 24-bit，自研 BdfReader）→ 去直流 → 1–45 Hz 带通滤波 → Welch 分段双谱计算
@@ -41,7 +49,7 @@
 │   ├── bicoherence_research_report/# 研究报告文本
 │   └── expert_epochs/
 │       └── expert_epochs_metrics.csv   # epoch 级双相干指标（核心数据）
-├── Changes_in_Electroencephalographic_Bicoh.pdf   # 参考论文
+├── （参考论文不随仓库分发，请通过出版社/DOI 获取）
 ├── md2pdf.config.json              # Markdown → PDF 样式配置
 └── 导出PDF.bat                      # 一键导出仓库内所有 .md 为 PDF
 ```
@@ -103,8 +111,8 @@ dotnet build code\BicoherenceAnalyzer\BicoherenceAnalyzer.csproj -c Release
 dotnet build code\BicoherenceViewer\BicoherenceViewer.csproj -c Release
 ```
 
-依赖说明：NuGet 自动恢复（MathNet.Numerics、ScottPlot、Microsoft.Web.WebView2）；
-SeeSharpTools 系列 DLL 已随仓库包含在 `code\*\lib\` 目录，无需额外安装。
+依赖说明：NuGet 自动恢复（MathNet.Numerics、ScottPlot、Microsoft.Web.WebView2）。
+SeeSharpTools 系列 DLL（版权归 JYTEK Corp.，官方提供免费下载）已随仓库包含在 `code\*\lib\` 目录，便于直接运行；如果你希望保持仓库精简，也可以删除这些 DLL，从 JYTEK 官方渠道获取后放入同一目录。第三方声明见 `THIRD-PARTY-NOTICES.md`。
 
 ### 4. 运行分析（命令行）
 
@@ -145,5 +153,12 @@ npm install -g md-to-pdf
 ## 参考
 
 - 算法参考：*Changes in Electroencephalographic Bicoherence During Sevoflurane Anesthesia*
-  （`Changes_in_Electroencephalographic_Bicoh.pdf`）
+  （请通过出版社/DOI 获取；本仓库不分发论文 PDF）
 - 双谱估计与归一化方法：Welch 分段平均 + N³·σ³ 归一化（Haubrich, 1965）
+
+## 许可证与第三方声明
+
+- 本项目自有代码：MIT License（如公司确认允许）。
+- SeeSharpTools 系列 DLL：版权归 JYTEK Corp. 所有，官方提供免费下载；本仓库包含的 DLL 仅用于方便运行，适用 JYTEK 的许可条款，详见 `THIRD-PARTY-NOTICES.md`。
+- 第三方开源库：MathNet.Numerics、ScottPlot、Microsoft.Web.WebView2、ECharts 等，遵循各自许可证。
+- 参考论文 PDF 不再随仓库分发，请通过出版社/DOI 获取。

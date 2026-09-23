@@ -1,4 +1,4 @@
-"""ds003969 组水平统计: Meditation vs Thinking -- LME + 可视化"""
+"""ds003969 组水平统计: Meditation vs Thinking -- 被试内平均 + 配对 t 检验 + 可视化"""
 import csv, os, glob
 import numpy as np
 from collections import defaultdict
