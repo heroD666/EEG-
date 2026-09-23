@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>3D Surface</title>
+    <style>
+        html, body, #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-gl@2.0.9/dist/echarts-gl.min.js"></script>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+
+        function renderSurface(data, xCount, yCount, xAxisName, yAxisName, zAxisName, title) {
+            // 从扁平数据扫描 Z 范围
+            var zMin = Infinity, zMax = -Infinity;
+            for (var i = 0; i < data.length; i++) {
+                var z = data[i][2];
+                if (typeof z === 'number' && isFinite(z)) {
+                    if (z < zMin) zMin = z;
+                    if (z > zMax) zMax = z;
+                }
+            }
+            if (!isFinite(zMin)) { zMin = 0; zMax = 1; }
+            // zMin 固定为 0（底面基准）
+            zMin = 0;
+            // zMax 向上取整到"漂亮"值，避免 visualMap 出现孤立刻度
+            var niceStep = zMax <= 10 ? 2 : zMax <= 20 ? 5 : zMax <= 50 ? 10 : zMax <= 100 ? 20 : 50;
+            zMax = Math.ceil(zMax / niceStep) * niceStep;
+
+            // 频率轴刻度：约 5 Hz 一个刻度
+            var maxFreq = xCount > 0 ? data[data.length - 1][1] : 0;
+            if (maxFreq <= 0 && xCount > 0 && yCount > 0) maxFreq = Math.max(
+                data[data.length - 1][0], data[data.length - 1][1]);
+            var freqSplits = Math.max(4, Math.min(8, Math.round(maxFreq / 5)));
+
+            var option = {
+                title: (title && title !== '') ? {
+                    text: title,
+                    left: 'center',
+                    top: 4,
+                    textStyle: { fontSize: 16, color: '#333' }
+                } : null,
+                tooltip: {
+                    formatter: function (params) {
+                        var d = params.data;
+                        if (!d || d.length < 3) return '';
+                        return (xAxisName || 'X') + ': ' + parseFloat(d[0]).toFixed(2) + '<br/>'
+                             + (yAxisName || 'Y') + ': ' + parseFloat(d[1]).toFixed(2) + '<br/>'
+                             + (zAxisName || 'Z') + ': ' + parseFloat(d[2]).toFixed(4);
+                    }
+                },
+                visualMap: {
+                    show: true,
+                    dimension: 2,
+                    min: zMin,
+                    max: zMax,
+                    calculable: false,
+                    right: 10,
+                    top: 'center',
+                    inRange: {
+                        color: ['#313695', '#4575b4', '#74add1', '#abd9e9',
+                                '#e0f3f8', '#ffffbf', '#fee090', '#fdae61',
+                                '#f46d43', '#d73027', '#a50026']
+                    }
+                },
+                xAxis3D: {
+                    type: 'value',
+                    name: xAxisName || 'X',
+                    nameGap: 40,
+                    nameTextStyle: { fontSize: 13, fontWeight: 'bold' },
+                    axisLabel: {
+                        fontSize: 10,
+                        formatter: function (v) { return v < 10 ? v.toFixed(1) : v.toFixed(0); }
+                    },
+                    axisLine: { lineStyle: { color: '#666' } }
+                },
+                yAxis3D: {
+                    type: 'value',
+                    name: yAxisName || 'Y',
+                    nameGap: 40,
+                    nameTextStyle: { fontSize: 13, fontWeight: 'bold' },
+                    axisLabel: {
+                        fontSize: 10,
+                        formatter: function (v) { return v < 10 ? v.toFixed(1) : v.toFixed(0); }
+                    },
+                    axisLine: { lineStyle: { color: '#666' } }
+                },
+                zAxis3D: {
+                    type: 'value',
+                    name: zAxisName || 'Z',
+                    min: zMin,
+                    max: zMax,
+                    splitNumber: 5,
+                    nameGap: 50,
+                    nameTextStyle: { fontSize: 13, fontWeight: 'bold' },
+                    axisLabel: { fontSize: 10 },
+                    axisLine: { lineStyle: { color: '#666' } }
+                },
+                grid3D: {
+                    viewControl: {
+                        projection: 'perspective'
+                    }
+                },
+                series: [{
+                    type: 'surface',
+                    wireframe: {
+                        show: true,
+                        lineStyle: { color: 'rgba(255,255,255,0.12)', width: 0.5 }
+                    },
+                    shading: 'color',
+                    dataShape: [xCount, yCount],
+                    data: data
+                }]
+            };
+
+            myChart.setOption(option, true);
+        }
+
+        window.addEventListener('resize', function () {
+            myChart.resize();
+        });
+    </script>
+</body>
+</html>

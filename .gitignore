@@ -1,0 +1,64 @@
+# ═══════════════════════════════════════════════════════
+#  EEG 双相干冥想分析 — 忽略规则
+#  原始数据与大体积产物保存在本地，不进入版本库
+# ═══════════════════════════════════════════════════════
+
+# ── 原始 EEG 数据（本地采集，含被试隐私，禁止上传）──
+/sub-*/
+
+# ── 公开数据集（用 code/_download_ds003969.py 重新下载）──
+/external_data/
+
+# ── 实验刺激音频 ──
+/stimuli/
+
+# ── BIDS 数据集元数据（属于原始数据集，非分析项目）──
+/participants.tsv
+/participants.json
+/dataset_description.json
+/CHANGES
+/task-meditation_channels.tsv
+/task-meditation_events.json
+
+# ── 被试文本记录（隐私数据）──
+code/MW_Current_TextFileBIDS.zip
+
+# ── 编译产物 ──
+[Bb]in/
+[Oo]bj/
+/dist/
+*.user
+*.suo
+*.cache
+
+# ── IDE ──
+.vs/
+.vscode/
+.idea/
+
+# ── 可重建的分析中间产物 ──
+results/expert_epochs/sub-*/
+results/spectral_scrolls/
+results/ensemble_averaging/
+results/generic_analysis/
+results/sub-*/
+results/ds003969_block_analysis/
+results/ds001787_block_analysis/
+
+# ── 数据文件类型（防御性规则）──
+*.bdf
+*.mat
+*.wav
+*.csv.gz
+
+# ── datalad 残留 ──
+.datalad/
+
+# ── Python ──
+__pycache__/
+*.pyc
+
+# ── 系统文件 ──
+Thumbs.db
+.DS_Store
+desktop.ini

@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>11</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+    <PackageReference Include="ScottPlot" Version="4.1.68" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SeeSharpTools.JY.DSP.Fundamental">
+      <HintPath>lib\SeeSharpTools.JY.DSP.Fundamental.dll</HintPath>
+    </Reference>
+    <Reference Include="SeeSharpTools.JY.Mathematics">
+      <HintPath>lib\SeeSharpTools.JY.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="SeeSharpTools.JY.DSP.SoundVibration">
+      <HintPath>lib\SeeSharpTools.JY.DSP.SoundVibration.dll</HintPath>
+    </Reference>
+    <Reference Include="SeeSharpTools.JY.File">
+      <HintPath>lib\SeeSharpTools.JY.File.dll</HintPath>
+    </Reference>
+    <Reference Include="SeeSharpTools.JY.ArrayUtility">
+      <HintPath>lib\SeeSharpTools.JY.ArrayUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="SeeSharpTools.JY.Statistics">
+      <HintPath>lib\SeeSharpTools.JY.Statistics.dll</HintPath>
+    </Reference>
+    <Reference Include="SeeSharpTools.JY.DSP.Utility.Filter1D">
+      <HintPath>lib\SeeSharpTools.JY.DSP.Utility.Filter1D.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
