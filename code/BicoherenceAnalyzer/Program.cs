@@ -653,7 +653,7 @@ class Program
         Console.WriteLine("选项:");
         Console.WriteLine("  --subject, -s  <ID>     被试ID (默认: sub-001)");
         Console.WriteLine("  --session, -ses <ID>    会话ID (默认: 自动检测)");
-        Console.WriteLine("  --datadir, -d  <path>   数据根目录 (默认: e:\\数据集)");
+        Console.WriteLine("  --datadir, -d  <path>   数据根目录 (默认: 程序目录\\data)");
         Console.WriteLine("  --mode, -m  <mode>      分析模式: stimulus(默认) | ensemble | validate | generic(通用EEG)");
         Console.WriteLine("  --surrogate              启用 surrogate 显著性检验");
         Console.WriteLine("  --all-expert             批量处理所有 expert 被试（per-epoch CSV）");
